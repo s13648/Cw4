@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Cw4.Dal;
 using Cw4.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -9,23 +10,23 @@ namespace Cw4.Controllers
     [Route("api/students")]
     public class StudentsController : ControllerBase
     {
-        private readonly IDbService _dbService;
+        private readonly IStudentDbService _studentDbService;
 
-        public StudentsController(IDbService dbService)
+        public StudentsController(IStudentDbService studentDbService)
         {
-            _dbService = dbService;
+            _studentDbService = studentDbService;
         }
 
         [HttpGet]
-        public IActionResult GeStudents(string orderBy)
+        public async Task<IActionResult> GeStudents(string orderBy)
         {
-            return Ok(_dbService.GetStudents());
+            return Ok(await _studentDbService.GetStudents());
         }
 
         [HttpPost]
         public IActionResult CreateStudent(Student student)
         {
-            student.IndexNumber = $"{new Random().Next(1, 20000)}";
+            //student.IndexNumber = $"{new Random().Next(1, 20000)}";
             return Ok(student);
         }
 

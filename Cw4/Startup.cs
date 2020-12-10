@@ -19,7 +19,13 @@ namespace Cw4
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<IDbService, MockDbService>();
+            services.AddSingleton<IStudentDbService, StudentDbService>();
+
+            services.AddSingleton<IConfig,Config>(b => new Config
+            {
+                ConnectionString = Configuration["DbConnectionString"]
+            });
+
             services.AddControllers();
         }
 
