@@ -40,8 +40,8 @@ namespace Cw4.Dal
             {
                 var student = new StudentEnrollment
                 {
-                    Semester = int.Parse(sqlDataReader[nameof(Student.Semester)].ToString()),
-                    StudyName = sqlDataReader[nameof(Student.StudyName)].ToString()
+                    Semester = int.Parse(sqlDataReader[nameof(StudentEnrollment.Semester)].ToString()),
+                    StudyName = sqlDataReader[nameof(StudentEnrollment.StudyName)].ToString()
                 };
                 students.Add(student);
             }
