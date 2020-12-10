@@ -20,6 +20,7 @@ namespace Cw4
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<IStudentDbService, StudentDbService>();
+            services.AddSingleton<IEnrollmentDbService, EnrollmentDbService>();
 
             services.AddSingleton<IConfig,Config>(b => new Config
             {

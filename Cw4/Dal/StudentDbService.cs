@@ -9,7 +9,7 @@ namespace Cw4.Dal
 {
     public class StudentDbService : IStudentDbService
     {
-        private string _getStudentsSql = @"SELECT 
+        private const string GetStudentsSql = @"SELECT 
 	                                        S.FirstName,
 	                                        S.LastName,
 	                                        S.BirthDate,
@@ -30,7 +30,7 @@ namespace Cw4.Dal
         public async Task<IEnumerable<Student>> GetStudents()
         {
             await using var sqlConnection = new SqlConnection(_config.ConnectionString);
-            await using var command = new SqlCommand(_getStudentsSql,sqlConnection) {CommandType = CommandType.Text};
+            await using var command = new SqlCommand(GetStudentsSql,sqlConnection) {CommandType = CommandType.Text};
             await sqlConnection.OpenAsync();
 
             var sqlDataReader = await command.ExecuteReaderAsync();
