@@ -24,14 +24,14 @@ namespace Cw4.Dal
 	                [Enrollment] AS E ON S.IdEnrollment = E.IdEnrollment JOIN
 	                [Studies] AS ST ON E.IdStudy = ST.IdStudy
                 WHERE
-	                S.IndexNumber = '{0}'";
+	                S.IndexNumber = @IndexNumber";
 
         public async Task<IEnumerable<StudentEnrollment>> GetStudentEnrollments(string studentIndex)
         {
             await using var sqlConnection = new SqlConnection(_config.ConnectionString);
-            var cmdText = string.Format(GetEnrollmentForStudentSql,studentIndex);
 
-            await using var command = new SqlCommand(cmdText, sqlConnection) { CommandType = CommandType.Text };
+            await using var command = new SqlCommand(GetEnrollmentForStudentSql, sqlConnection) { CommandType = CommandType.Text };
+            command.Parameters.AddWithValue("IndexNumber", studentIndex);
             await sqlConnection.OpenAsync();
 
             var sqlDataReader = await command.ExecuteReaderAsync();
