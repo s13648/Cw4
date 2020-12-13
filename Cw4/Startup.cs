@@ -19,8 +19,8 @@ namespace Cw4
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<IStudentDbService, StudentDbService>();
-            services.AddSingleton<IEnrollmentDbService, EnrollmentDbService>();
+            services.AddTransient<IStudentDbService, StudentDbService>();
+            services.AddTransient<IEnrollmentDbService, EnrollmentDbService>();
 
             services.AddSingleton<IConfig,Config>(b => new Config
             {
