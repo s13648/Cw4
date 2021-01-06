@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Cw4.Dal;
 using Cw4.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cw4.Controllers
@@ -20,7 +21,14 @@ namespace Cw4.Controllers
         [HttpGet]
         public async Task<IActionResult> GeStudents(string orderBy)
         {
-            return Ok(await _studentDbService.GetStudents());
+            try
+            {
+                return Ok(await _studentDbService.GetStudents());
+            }
+            catch
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
         }
 
         [HttpPost]

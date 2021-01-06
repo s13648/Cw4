@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Cw4.Dal;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cw4.Controllers
@@ -18,7 +19,14 @@ namespace Cw4.Controllers
         [HttpGet("{studentIndex}")]
         public async Task<IActionResult> GetStudentEnrollments(string studentIndex)
         {
-            return Ok(await _enrollmentDbService.GetStudentEnrollments(studentIndex));
+            try
+            {
+                return Ok(await _enrollmentDbService.GetStudentEnrollments(studentIndex));
+            }
+            catch
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
         }
     }
 }
